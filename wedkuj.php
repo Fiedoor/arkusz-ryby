@@ -16,7 +16,12 @@
             <h3>Ryby zamieszkujące rzeki</h3>
             <ol>
                 <?php
-                //s1
+                $conn = mysqli_connect('localhost', 'root', '', 'wedkowanie');
+                $q1 = "SELECT nazwa,akwen,wojewodztwo FROM ryby INNER JOIN lowisko ON ryby.id=lowisko.Ryby_id WHERE rodzaj=3;";
+                $res1 = mysqli_query($conn, $q1);
+                foreach ($res1 as $row) {
+                    echo "<li>" . $row['nazwa'] . " pływa w rzece " . $row['akwen'] . ", " . $row['wojewodztwo'] . "</li>";
+                }
                 ?>
             </ol>
         </div>
@@ -29,7 +34,16 @@
                     <th>Występowanie</th>
                 </tr>
                 <?php
-                //s2
+                $q2 = "SELECT id, nazwa, wystepowanie FROM ryby WHERE styl_zycia=1;";
+                $res2 = mysqli_query($conn, $q2);
+                foreach ($res2 as $row) {
+                    echo "<tr>";
+                    foreach ($row as $r) {
+                        echo "<td>" . $r . "</td>";
+                    }
+                    echo "</tr>";
+                }
+                mysqli_close($conn);
                 ?>
             </table>
         </div>
